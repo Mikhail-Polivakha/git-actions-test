@@ -12,11 +12,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: list directory before github clone
+        run : |
+          ls -la
+
+      - name: git copy repository content
+        uses: actions/checkout@v1
+
+      - name: list directory after github clone
+        run : |
+            ls -la
+
       - name: Print content of current version of github repository
         run : |
           echo "Build ${{env.APPLICATION_NAME}}. Version ${{env.APPLICAITON_IMAGE_VERSION}}. Last commit hash :  ${{env.LAST_COMMIT_HASH}}"
   test:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: print content of project
         run : |
