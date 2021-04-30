@@ -10,6 +10,8 @@ on:
 
 jobs:
   build:
+    env:
+      NAME_OF_THE_STAGE: "build"
     runs-on: ubuntu-latest
     steps:
       - name: list directory before github clone
@@ -25,11 +27,22 @@ jobs:
 
       - name: Print content of current version of github repository
         run : |
-          echo "Build ${{env.APPLICATION_NAME}}. Version ${{env.APPLICAITON_IMAGE_VERSION}}. Last commit hash :  ${{env.LAST_COMMIT_HASH}}"
+          echo "Stage : ${{env.NAME_OF_THE_STAGE}}. Service : ${{env.APPLICATION_NAME}}. Version ${{env.APPLICAITON_IMAGE_VERSION}}. Last commit hash :  ${{env.LAST_COMMIT_HASH}}"
   test:
+    env:
+      NAME_OF_THE_STAGE : "test"
     runs-on: ubuntu-latest
     needs: [build]
     steps:
+      - name: Stage Info
+        run : |
+          echo "Stage : ${{env.NAME_OF_THE_STAGE}}"
       - name: print content of project
         run : |
           ls -la
+      - name: Amazon Version echo
+        run : |
+          aws --version
+      - name: ZIP Version echo
+        run: |
+          zip --version
