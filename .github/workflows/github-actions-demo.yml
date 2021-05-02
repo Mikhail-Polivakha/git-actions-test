@@ -1,8 +1,13 @@
 name: test pipeline
 env:
-  APPLICAITON_IMAGE_VERSION: "1.0"
-  APPLICATION_NAME: "transactions-management-support"
-  LAST_COMMIT_HASH: ${{github.sha}}
+  APPLICAITON_IMAGE_VERSION : "1.0"
+  APPLICATION_NAME          : "transactions-management-support"
+  LAST_COMMIT_HASH          : ${{github.sha}}
+  EB_PACKAGE_S3_BACKET_NAME : "my-first-deployment-to-amazon"
+  EB_APPLICATION_NAME       : "MyFirstElasticBeanstlak"
+  DEPLOY_PACKAGE_NAME       : "docker_image_${{github.sha}}"
+  DEPLOY_REGION             : "eu-north-1"
+
 on:
   push:
     branches:
@@ -27,7 +32,11 @@ jobs:
 
       - name: Print content of current version of github repository
         run : |
-          echo "Stage : ${{env.NAME_OF_THE_STAGE}}. Service : ${{env.APPLICATION_NAME}}. Version ${{env.APPLICAITON_IMAGE_VERSION}}. Last commit hash :  ${{env.LAST_COMMIT_HASH}}"
+          echo "Stage : ${{env.NAME_OF_THE_STAGE}}. Service : ${{env.APPLICATION_NAME}}. \
+              Version ${{env.APPLICAITON_IMAGE_VERSION}}. Last commit hash :  ${{env.LAST_COMMIT_HASH}}"
+      - name: Check docker availability
+        run: |
+          docker --version
   test:
     env:
       NAME_OF_THE_STAGE : "test"

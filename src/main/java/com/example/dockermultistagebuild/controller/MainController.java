@@ -25,7 +25,7 @@ public class MainController {
         return transaction;
     }
 
-    @GetMapping
+    @GetMapping("/health-check")
     @ResponseStatus(HttpStatus.OK)
     public void healthCheck() {
         
