@@ -16,7 +16,7 @@ FROM openjdk:11.0.8-jre-slim
 WORKDIR /application
 ARG IMAGE_VERSION
 ENV IMG_VER ${IMAGE_VERSION}
-COPY --from=build-jar-stage /application/build/libs/transactions-management-support-1.0.jar ./
+COPY --from=build-jar-stage /application/build/libs/transactions-management-support-${IMAGE_VERSION}.jar ./
 
 
 CMD java -jar /application/build/libs/transactions-management-support-${IMG_VER}.jar
